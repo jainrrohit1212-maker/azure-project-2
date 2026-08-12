@@ -1,6 +1,6 @@
 
-resource "azurerm_network_interface" "nic" { 
-    for_each = var.vms
+resource "azurerm_network_interface" "nic" {
+  for_each            = var.vms
   name                = each.value.nic_name
   location            = each.value.location
   resource_group_name = each.value.resource_group_name
@@ -13,13 +13,13 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 resource "azurerm_linux_virtual_machine" "virtual_machine" {
-  for_each= var.vms
-  name                = each.value.vms_name
-  resource_group_name = each.value.resource_group_name
-  location            = each.value.location
-  size                = each.value.vms_size
-  admin_username      = each.value.admin_username
-  admin_password      = each.value.admin_password
+  for_each                        = var.vms
+  name                            = each.value.vms_name
+  resource_group_name             = each.value.resource_group_name
+  location                        = each.value.location
+  size                            = each.value.vms_size
+  admin_username                  = each.value.admin_username
+  admin_password                  = each.value.admin_password
   disable_password_authentication = false
   network_interface_ids = [
     azurerm_network_interface.nic[each.key].id
