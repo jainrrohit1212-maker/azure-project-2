@@ -1,4 +1,4 @@
-module "azurerm_resource_group" {
+module "azurerm_resource_group1" {
   source = "../../child/azurerm_resource_group"
 
   rg_name = var.rg
