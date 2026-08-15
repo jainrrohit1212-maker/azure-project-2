@@ -12,9 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Check Repository Structure
+        run: |
+          pwd
+          ls -la
+          ls -la prod
+          ls -la prod/environment
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -23,7 +29,7 @@ jobs:
         run: terraform fmt -check -recursive
 
       - name: Terraform Init
-        run: terraform init -backend=false
+        run: terraform init --backend=false
         working-directory: prod/environment
 
       - name: Terraform Validate
