@@ -35,3 +35,16 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
         working-directory: prod/environment
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v6
+
+      - name: Initialize TFLint
+        run: tflint --init
+        working-directory: prod/environment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Run TFLint
+        run: tflint -f compact
+        working-directory: prod/environment
