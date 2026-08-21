@@ -31,6 +31,7 @@ module "azurerm_pip" {
 module "azurerm_virtual_machine" {
   source = "../../child/azurerm_virtual_machine"
 
-  vms = var.vm
+  vms           = var.vm
+  subnet_ids    = module.azurerm_subnet.subnet_ids
+  public_ip_ids = module.azurerm_pip.public_ip_ids
 }
-
