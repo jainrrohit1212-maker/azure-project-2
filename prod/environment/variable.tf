@@ -1,3 +1,9 @@
+variable "subscription_id" {
+  type        = string
+  description = "Azure Subscription ID"
+  sensitive   = true
+}
+
 variable "rg" {
   type = map(object({
     name     = string
