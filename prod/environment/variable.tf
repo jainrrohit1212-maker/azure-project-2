@@ -4,6 +4,24 @@ variable "subscription_id" {
   sensitive   = true
 }
 
+variable "client_id" {
+  type        = string
+  description = "Azure Service Principal Client ID"
+  sensitive   = true
+}
+
+variable "client_secret" {
+  type        = string
+  description = "Azure Service Principal Client Secret"
+  sensitive   = true
+}
+
+variable "tenant_id" {
+  type        = string
+  description = "Azure Tenant ID"
+  sensitive   = true
+}
+
 variable "rg" {
   type = map(object({
     name     = string
