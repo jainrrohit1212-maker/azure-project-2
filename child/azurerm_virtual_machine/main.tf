@@ -1,4 +1,3 @@
-
 resource "azurerm_network_interface" "nic" {
   for_each            = var.vms
   name                = each.value.nic_name
@@ -7,11 +6,12 @@ resource "azurerm_network_interface" "nic" {
 
   ip_configuration {
     name                          = "ultra"
-    subnet_id                     = data.azurerm_subnet.subnet[each.key].id
-    public_ip_address_id          = data.azurerm_public_ip.public_ip[each.key].id
+    subnet_id                     = lookup(var.subnet_ids, each.value.nic_subnet_name, null)
+    public_ip_address_id          = lookup(var.public_ip_ids, each.value.nic_public_ip_name, null)
     private_ip_address_allocation = "Dynamic"
   }
 }
+
 resource "azurerm_linux_virtual_machine" "virtual_machine" {
   for_each                        = var.vms
   name                            = each.value.vms_name
@@ -23,7 +23,6 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
   disable_password_authentication = false
   network_interface_ids = [
     azurerm_network_interface.nic[each.key].id
-
   ]
 
   os_disk {
